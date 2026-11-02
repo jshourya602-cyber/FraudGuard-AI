@@ -1,0 +1,250 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FraudGuard AI | Transaction Details</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f3f6fc;
+            color: #1e293b;
+        }
+
+        .navbar {
+            background: #101c3a;
+            color: white;
+            padding: 20px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 23px;
+            font-weight: bold;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .container {
+            max-width: 950px;
+            margin: 45px auto;
+            padding: 0 20px;
+        }
+
+        .heading {
+            margin-bottom: 25px;
+        }
+
+        .heading h1 {
+            margin-bottom: 10px;
+        }
+
+        .heading p {
+            color: #64748b;
+        }
+
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        .result {
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            background: #f8fafc;
+        }
+
+        .result h2 {
+            margin-bottom: 12px;
+        }
+
+        .fraud {
+            color: #dc2626;
+            font-weight: bold;
+        }
+
+        .genuine {
+            color: #16a34a;
+            font-weight: bold;
+        }
+
+        .high {
+            color: #dc2626;
+            font-weight: bold;
+        }
+
+        .medium {
+            color: #d97706;
+            font-weight: bold;
+        }
+
+        .low {
+            color: #16a34a;
+            font-weight: bold;
+        }
+
+        .details {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .detail-item {
+            padding: 18px;
+            background: #f8fafc;
+            border-radius: 8px;
+        }
+
+        .detail-item p {
+            color: #64748b;
+            margin-bottom: 8px;
+        }
+
+        .detail-item h3 {
+            font-size: 19px;
+        }
+
+        .back-btn {
+            display: inline-block;
+            margin-top: 25px;
+            padding: 13px 22px;
+            background: #2563eb;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 25px;
+            color: #64748b;
+        }
+
+        @media (max-width: 550px) {
+            .details {
+                grid-template-columns: 1fr;
+            }
+
+            .navbar {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="navbar">
+        <div class="logo">🛡️ FraudGuard AI</div>
+        <a href="/dashboard">Dashboard</a>
+    </header>
+
+    <main class="container">
+
+        <div class="heading">
+            <h1>Transaction Details</h1>
+            <p>Complete information about the selected transaction.</p>
+        </div>
+
+        <section class="card">
+
+            <div class="result">
+
+                <h2>Analysis Result</h2>
+
+                <p>
+                    Transaction ID:
+                    <strong>#{{ transaction.id }}</strong>
+                </p>
+
+                <p>
+                    Prediction:
+                    {% if transaction.prediction == "Fraud" %}
+                        <span class="fraud">Fraud</span>
+                    {% else %}
+                        <span class="genuine">Genuine</span>
+                    {% endif %}
+                </p>
+
+                <p>
+                    Risk Score:
+                    <strong>{{ transaction.risk_score }}%</strong>
+                </p>
+
+                <p>
+                    Risk Level:
+                    <span class="{{ risk_level|lower }}">
+                        {{ risk_level }}
+                    </span>
+                </p>
+
+            </div>
+
+            <h2 style="margin-bottom: 20px;">Transaction Information</h2>
+
+            <div class="details">
+
+                <div class="detail-item">
+                    <p>Transaction Amount</p>
+                    <h3>₹{{ transaction.amount }}</h3>
+                </div>
+
+                <div class="detail-item">
+                    <p>Transaction Hour</p>
+                    <h3>{{ transaction.transaction_hour }}:00</h3>
+                </div>
+
+                <div class="detail-item">
+                    <p>Distance From Home</p>
+                    <h3>{{ transaction.distance_from_home }} km</h3>
+                </div>
+
+                <div class="detail-item">
+                    <p>Failed Attempts</p>
+                    <h3>{{ transaction.failed_attempts }}</h3>
+                </div>
+
+                <div class="detail-item">
+                    <p>Account Age</p>
+                    <h3>{{ transaction.account_age_days }} days</h3>
+                </div>
+
+                <div class="detail-item">
+                    <p>Transaction Date & Time</p>
+                    <h3>{{ transaction.created_at }}</h3>
+                </div>
+
+            </div>
+
+            <a href="/dashboard" class="back-btn">
+                Back to Dashboard
+            </a>
+
+        </section>
+
+    </main>
+
+    <footer class="footer">
+        © 2026 FraudGuard AI | Intelligent Fraud Detection System
+    </footer>
+
+</body>
+</html>
